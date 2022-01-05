@@ -24,7 +24,7 @@ metadata = setup_cfg['metadata']
 
 
 # What packages are required for this module to be executed?
-REQUIRED = [ 'click', 'inquirer', 'arrow', 'pathlib', 'shellingham' ]
+REQUIRED = [ 'click', 'pathlib', 'shellingham' ]
 
 # What packages are optional?
 EXTRAS = {
