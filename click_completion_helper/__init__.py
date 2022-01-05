@@ -14,8 +14,8 @@ current_dir = Path(os.path.dirname(os.path.abspath(inspect.getfile(inspect.curre
 def cli(config):
     pass
 
-@cli.command()
-@click.argument("name", help="Name of the console call.")
+@cli.command(help="Name of the console call.")
+@click.argument("name")
 def setup(name):
     def setup_for_shell_generic(shell):
 
