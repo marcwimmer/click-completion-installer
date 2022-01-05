@@ -105,6 +105,9 @@ setup(
     # If your package is a single module, use this instead of 'packages':
     #py_modules=['prlsnapshotter'],
     data_files=[
+        (metadata['name'], [
+            'data/bash',
+        ])
     ],
     install_requires=REQUIRED,
     extras_require=EXTRAS,
