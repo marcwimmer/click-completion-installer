@@ -11,7 +11,7 @@ from pathlib import Path
 current_dir = Path(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
 
 @click.group()
-def cli(config):
+def cli():
     pass
 
 @cli.command(help="Name of the console call.")
