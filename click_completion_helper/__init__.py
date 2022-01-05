@@ -43,4 +43,4 @@ def setup(name):
                 rc.write_text(content)
 
     shell = shellingham.detect_shell()[0]
-    setup_for_shell_generic(shell, name)
+    setup_for_shell_generic(shell)
