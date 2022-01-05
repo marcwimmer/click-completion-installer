@@ -1,0 +1,9 @@
+pipenv install twine --dev
+
+pipenv shell
+
+pip install build
+rm dist -Rf
+python -m build
+twine upload dist/*
+exit
