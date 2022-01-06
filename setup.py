@@ -17,7 +17,6 @@ from subprocess import check_call, check_output
 
 import inspect
 import os
-from pathlib import Path
 
 # HACK to ignore wheel building from pip and just to source distribution
 if 'bdist_wheel' in sys.argv:
