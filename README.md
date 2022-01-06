@@ -26,7 +26,6 @@ class InstallCommand(install):
             console_call = console_script.split("=")[0].strip()
 
             # if click completion helper is fresh installed and not available now
-            subprocess.run(["pip3", "install", "click-completion-helper"])
             subprocess.run([
                 "click-completion-helper",
                 "setup",
@@ -34,4 +33,20 @@ class InstallCommand(install):
             ])
 
 
+setup(
+    ...
+    setup_requires=['click-completion-helper', ...],
+
+    ...
+)
+
+```
+
+or in setup.cfg:
+
+```
+
+[options]
+setup_requires =
+  click-completion-helper
 ```
