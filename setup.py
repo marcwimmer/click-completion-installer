@@ -35,22 +35,14 @@ EXTRAS = {
     # 'fancy feature': ['django'],
 }
 
-# The rest you shouldn't have to touch too much :)
-# ------------------------------------------------
-# Except, perhaps the License and Trove Classifiers!
-# If you do change the License, remember to change the Trove Classifier for that!
-
 here = os.path.abspath(os.path.dirname(__file__))
 
-# Import the README and use it as the long-description.
-# Note: this will only work if 'README.md' is present in your MANIFEST.in file!
 try:
     with io.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
         long_description = '\n' + f.read()
 except FileNotFoundError:
     long_description = metadata['DESCRIPTION']
 
-# Load the package's __version__.py module as a dictionary.
 about = {}
 if not metadata['version']:
     project_slug = metadata['name'].lower().replace("-", "_").replace(" ", "_")
