@@ -21,7 +21,7 @@ from pathlib import Path
 current_dir = Path(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
 setup_cfg = read_configuration("setup.cfg")
 metadata = setup_cfg['metadata']
-
+NAME = metadata['name']
 
 # What packages are required for this module to be executed?
 REQUIRED = [ 'click', 'pathlib', 'shellingham' ]
@@ -73,15 +73,19 @@ class UploadCommand(Command):
     def finalize_options(self):
         pass
 
+    def clear_builds(self):
+        for path in ['dist', 'build', NAME.replace("-", "_") + ".egg-info"]:
+            try:
+                self.status(f'Removing previous builds from {path}')
+                rmtree(os.path.join(here, path))
+            except OSError:
+                pass
+
     def run(self):
-        try:
-            self.status('Removing previous builds…')
-            rmtree(os.path.join(here, 'dist'))
-        except OSError:
-            pass
+        self.clear_builds()
 
         self.status('Building Source and Wheel (universal) distribution…')
-        os.system('{0} setup.py sdist bdist_wheel --universal'.format(sys.executable))
+        os.system('{0} setup.py sdist'.format(sys.executable))
 
         self.status('Uploading the package to PyPI via Twine…')
         os.system('twine upload dist/*')
@@ -89,6 +93,8 @@ class UploadCommand(Command):
         self.status('Pushing git tags…')
         os.system('git tag v{0}'.format(about['__version__']))
         os.system('git push --tags')
+
+        self.clear_builds()
 
         sys.exit()
 
@@ -111,16 +117,6 @@ setup(
     install_requires=REQUIRED,
     extras_require=EXTRAS,
     include_package_data=True,
-    classifiers=[
-        # Trove classifiers
-        # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
-        'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: Implementation :: CPython',
-        'Programming Language :: Python :: Implementation :: PyPy'
-    ],
     # $ setup.py publish support.
     cmdclass={
         'upload': UploadCommand,
