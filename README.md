@@ -25,16 +25,13 @@ class InstallCommand(install):
         for console_script in setup_cfg['options']['entry_points']['console_scripts']:
             console_call = console_script.split("=")[0].strip()
 
-            try:
-                subprocess.check_output(["which", "click-completion-helper"])
-            except subprocess.CalledProcessError:
-                pass
-            else:
-                subprocess.check_call([
-                    "click-completion-helper",
-                    "setup",
-                    console_call,
-                ])
+            # if click completion helper is fresh installed and not available now
+            subprocess.run(["pip3", "install", "click-completion-helper"])
+            subprocess.run([
+                "click-completion-helper",
+                "setup",
+                console_call,
+            ])
 
 
 ```
